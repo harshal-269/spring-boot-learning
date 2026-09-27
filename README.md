@@ -102,18 +102,8 @@ My goal is to understand Spring Boot deeply by learning concepts step-by-step an
 
 
 
-\### SpringBootP01
-
-
-
-My initial Spring Boot project.
-
-
-
+\### SpringBootP01  My initial Spring Boot project.
 Topics:
-
-
-
 \- Spring Boot fundamentals
 
 \- REST API
@@ -126,18 +116,9 @@ Topics:
 
 
 
-\### SpringBootP02
-
-
-
-Student Management REST API.
-
-
+\### SpringBootP02  Student Management REST API.
 
 Topics:
-
-
-
 \- REST API
 
 \- CRUD operations
@@ -152,18 +133,9 @@ Topics:
 
 
 
-\### SpringBootP03
-
-
-
-Student Management application using JPA.
-
-
+\### SpringBootP03 Student Management application using JPA.
 
 Topics:
-
-
-
 \- JPA
 
 \- Entity
@@ -182,6 +154,67 @@ Topics:
 
 \---
 
+# SpringBootP03: 📚 Library Management REST API
+
+A backend REST API built using **Java and Spring Boot** for managing books in a library.
+
+This project is part of my Spring Boot learning journey and focuses on understanding **layered architecture, CRUD operations, DTOs, validation, JPA, MySQL, and exception handling**.
+
+---
+
+## 🚀 Features
+
+- Create a new book
+- Get all books
+- Get book by ID
+- Update a book
+- Delete a book
+- Request validation
+- Exception handling
+- Custom `BookNotFoundException`
+- Request DTO and Response DTO
+- DTO ↔ Entity conversion
+- MySQL database integration
+
+---
+
+## 🛠️ Technologies Used
+
+- Java
+- Spring Boot
+- Spring Web
+- Spring Data JPA
+- MySQL
+- Maven
+- Jakarta Validation
+- Postman
+- Git & GitHub
+
+---
+
+## 📂 Project Structure
+
+src/main/java/com/example/LibraryManagementAPI
+│
+├── controller
+│   └── BookController.java
+│
+├── dto
+│   ├── BookRequestDTO.java
+│   └── BookResponseDTO.java
+│
+├── entity
+│   └── Book.java
+│
+├── exception
+│   ├── BookNotFoundException.java
+│   └── GlobalExceptionHandler.java
+│
+├── repository
+│   └── BookRepository.java
+│
+└── service
+    └── BookService.java
 
 
 \## 📈 Progress
