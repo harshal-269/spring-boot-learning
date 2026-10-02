@@ -1,168 +1,110 @@
-# spring-boot-learning
-
-
-
-
-
-
-
-\# Spring Boot Learning Journey 🚀
-
-
+# Spring Boot Learning Journey 🚀
 
 This repository documents my journey of learning Spring Boot and backend development.
 
-
-
 My goal is to understand Spring Boot deeply by learning concepts step-by-step and applying them through projects.
-
-
-
-\---
-
-
-
-\## 📚 Learning Roadmap
-
-
-
-\### Spring Core
-
-
-
-\- \[x] IoC
-
-\- \[x] Dependency Injection
-
-\- \[x] Constructor Injection
-
-\- \[x] Setter Injection
-
-\- \[x] @Autowired
-
-\- \[x] @Qualifier
-
-\- \[x] @Primary
-
-\- \[x] @Component
-
-\- \[x] @Service
-
-\- \[x] @Configuration
-
-\- \[x] @Bean
-
-
-
-\### Spring Boot
-
-
-
-\- \[x] Spring Boot Basics
-
-\- \[x] Project Structure
-
-\- \[x] REST API
-
-\- \[x] Controller
-
-\- \[x] Service
-
-\- \[x] Repository
-
-\- \[x] CRUD Operations
-
-\- \[x] JPA
-
-\- \[x] MySQL
-
-\- \[x] Exception Handling
-
-\- \[ ] Validation
-
-\- \[ ] DTOs
-
-\- \[ ] Spring Security
-
-\- \[ ] JWT Authentication
-
-\- \[ ] Testing
-
-\- \[ ] Docker
-
-\- \[ ] Deployment
-
-
-
-\---
-
-
-
-\## 🛠️ Projects
-
-
-
-\### SpringBootP01  My initial Spring Boot project.
-Topics:
-\- Spring Boot fundamentals
-
-\- REST API
-
-\- Controller
-
-\- Service
-
-\- Dependency Injection
-
-
-
-\### SpringBootP02  Student Management REST API.
-
-Topics:
-\- REST API
-
-\- CRUD operations
-
-\- Controller
-
-\- Service layer
-
-\- Repository
-
-\- Exception handling
-
-
-
-\### SpringBootP03 Student Management application using JPA.
-
-Topics:
-\- JPA
-
-\- Entity
-
-\- Repository
-
-\- MySQL
-
-\- DTO
-
-\- Service layer
-
-\- Exception handling
-
-
-
-\---
-
-# SpringBootP03: 📚 Library Management REST API
-
-A backend REST API built using **Java and Spring Boot** for managing books in a library.
-
-This project is part of my Spring Boot learning journey and focuses on understanding **layered architecture, CRUD operations, DTOs, validation, JPA, MySQL, and exception handling**.
 
 ---
 
-## 🚀 Features
+## 📚 Learning Roadmap
+
+### Spring Core
+
+- [x] IoC
+- [x] Dependency Injection
+- [x] Constructor Injection
+- [x] Setter Injection
+- [x] @Autowired
+- [x] @Qualifier
+- [x] @Primary
+- [x] @Component
+- [x] @Service
+- [x] @Configuration
+- [x] @Bean
+
+### Spring Boot
+
+- [x] Spring Boot Basics
+- [x] Project Structure
+- [x] REST API
+- [x] Controller
+- [x] Service
+- [x] Repository
+- [x] CRUD Operations
+- [x] JPA
+- [x] MySQL
+- [x] Exception Handling
+- [x] Validation
+- [x] DTOs
+- [ ] Spring Security
+- [ ] JWT Authentication
+- [ ] Testing
+- [ ] Docker
+- [ ] Deployment
+
+---
+
+# 🛠️ Projects
+
+## 1. SpringBootP01
+
+My initial Spring Boot project.
+
+### Topics
+
+- Spring Boot fundamentals
+- REST API
+- Controller
+- Service
+- Dependency Injection
+
+---
+
+## 2. SpringBootP02
+
+Student Management REST API.
+
+### Topics
+
+- REST API
+- CRUD operations
+- Controller
+- Service layer
+- Repository
+- Exception handling
+
+---
+
+## 3. SpringBootP03 — Student Management / JPA
+
+Student Management application using Spring Data JPA.
+
+### Topics
+
+- JPA
+- Entity
+- Repository
+- MySQL
+- Service layer
+- Exception handling
+
+---
+
+# 📚 4. Library Management REST API
+
+A backend REST API built using **Java and Spring Boot** for managing books in a library.
+
+This project focuses on understanding:
+
+- Layered architecture
+- CRUD operations
+- DTOs
+- Validation
+- JPA
+- MySQL
+- Exception handling
+
+### 🚀 Features
 
 - Create a new book
 - Get all books
@@ -176,9 +118,7 @@ This project is part of my Spring Boot learning journey and focuses on understan
 - DTO ↔ Entity conversion
 - MySQL database integration
 
----
-
-## 🛠️ Technologies Used
+### 🛠️ Technologies Used
 
 - Java
 - Spring Boot
@@ -192,70 +132,41 @@ This project is part of my Spring Boot learning journey and focuses on understan
 
 ---
 
-## 📂 Project Structure
+# 🎬 5. BookMyShowBE
 
-src/main/java/com/example/LibraryManagementAPI
-│
-├── controller
-│   └── BookController.java
-│
-├── dto
-│   ├── BookRequestDTO.java
-│   └── BookResponseDTO.java
-│
-├── entity
-│   └── Book.java
-│
-├── exception
-│   ├── BookNotFoundException.java
-│   └── GlobalExceptionHandler.java
-│
-├── repository
-│   └── BookRepository.java
-│
-└── service
-    └── BookService.java
+A backend REST API project inspired by a movie ticket booking platform.
 
+The project focuses on building a real-world Spring Boot backend with multiple entities, layered architecture, DTOs, database relationships, booking functionality, and exception handling.
 
-\## 📈 Progress
+### 🚀 Features
 
+- Movie management
+- Theatre management
+- Show management
+- Customer profiles
+- Show seat management
+- Movie and theatre APIs
+- Show APIs
+- Seat availability handling
+- Movie ticket booking
+- Booking response handling
+- Profile management
+- Custom exception handling
+- Global API exception handling
+- MySQL database integration
+- REST API architecture
 
+### 🏗️ Architecture
 
-This repository will continuously evolve as I learn new Spring Boot concepts and build more applications.
+The project follows a layered architecture:
 
-
-
-The goal is not just to complete tutorials, but to understand the concepts and apply them through code.
-
-
-
-\---
-
-
-
-\## 🎯 Final Goal
-
-
-
-After building a strong foundation in Spring Boot, I plan to build independent, production-ready and unique projects.
-
-
-
-\---
-
-
-
-\## 👨‍💻 Author
-
-
-
-\*\*Harshal Darandale\*\*
-
-
-
-Engineering Student | AI \& Data Science
-
-
-
-Learning Backend Development with Java \& Spring Boot
-
+```text
+Client
+   ↓
+Controller
+   ↓
+Service
+   ↓
+Repository
+   ↓
+MySQL Database
