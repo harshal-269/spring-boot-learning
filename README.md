@@ -156,23 +156,27 @@ The project focuses on building a real-world Spring Boot backend with multiple e
 - MySQL database integration
 - REST API architecture
 
+- 
+
 ### 🏗️ Architecture
 
 The project follows a layered architecture:
 
-```text
+```
 Client
    ↓
 Controller
+   ↓
+Service
+   ↓
+Repository
+   ↓
+MySQL Database
+```
 
-
-
-# 🔐 6. Spring Security P01 — Authentication & Authorization
-
-A practical Spring Security project built to understand the fundamentals of authentication and authorization.
-
-### 🚀 Features
-
+🔐 6. SpringSecurityP01
+A basic Spring Security project built to understand authentication and authorization.
+🚀 Features
 - User registration
 - Password encryption using BCrypt
 - User authentication
@@ -181,26 +185,18 @@ A practical Spring Security project built to understand the fundamentals of auth
 - Protected REST APIs
 - Spring Security default login
 - Authentication and authorization flow
-- Access control for protected endpoints
-- `401 Unauthorized`
-- `403 Forbidden`
-
-### 🔑 Concepts Learned
-
-- Spring Security
-- `PasswordEncoder`
-- `BCryptPasswordEncoder`
-- `UserDetailsService`
-- `SecurityFilterChain`
+🔑 Concepts Learned
+- PasswordEncoder
+- BCryptPasswordEncoder
+- UserDetailsService
+- SecurityFilterChain
 - Authentication
 - Authorization
 - Role-Based Access Control
 - Protected endpoints
-- Security filters
-- User roles
-
-### 🛠️ Technologies Used
-
+- 401 Unauthorized
+- 403 Forbidden
+🛠️ Technologies Used
 - Java 21
 - Spring Boot
 - Spring Security
@@ -209,9 +205,6 @@ A practical Spring Security project built to understand the fundamentals of auth
 - Maven
 - Postman
 - Git & GitHub
-   ↓
-Service
-   ↓
-Repository
-   ↓
-MySQL Database
+
+
+- Git & GitHub
