@@ -36,7 +36,7 @@ My goal is to understand Spring Boot deeply by learning concepts step-by-step an
 - [x] Exception Handling
 - [x] Validation
 - [x] DTOs
-- [ ] Spring Security
+- [x] Spring Security
 - [ ] JWT Authentication
 - [ ] Testing
 - [ ] Docker
@@ -164,6 +164,51 @@ The project follows a layered architecture:
 Client
    ↓
 Controller
+
+
+
+# 🔐 6. Spring Security P01 — Authentication & Authorization
+
+A practical Spring Security project built to understand the fundamentals of authentication and authorization.
+
+### 🚀 Features
+
+- User registration
+- Password encryption using BCrypt
+- User authentication
+- USER and ADMIN roles
+- Role-based authorization
+- Protected REST APIs
+- Spring Security default login
+- Authentication and authorization flow
+- Access control for protected endpoints
+- `401 Unauthorized`
+- `403 Forbidden`
+
+### 🔑 Concepts Learned
+
+- Spring Security
+- `PasswordEncoder`
+- `BCryptPasswordEncoder`
+- `UserDetailsService`
+- `SecurityFilterChain`
+- Authentication
+- Authorization
+- Role-Based Access Control
+- Protected endpoints
+- Security filters
+- User roles
+
+### 🛠️ Technologies Used
+
+- Java 21
+- Spring Boot
+- Spring Security
+- Spring Data JPA
+- MySQL
+- Maven
+- Postman
+- Git & GitHub
    ↓
 Service
    ↓
