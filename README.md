@@ -1,8 +1,8 @@
 # 🚀 Spring Boot Learning Journey
 
-This repository documents my journey of learning **Spring Boot, Java backend development, REST APIs, Spring Security, and Microservices** through hands-on projects.
+This repository documents my journey of learning **Java backend development, Spring Boot, REST APIs, Spring Security, and Microservices** through hands-on projects.
 
-My goal is to understand backend development step by step, strengthen my fundamentals, and build real-world projects using industry-relevant technologies.
+My goal is to strengthen my backend fundamentals, understand how real-world applications work internally, and gradually build scalable applications using industry-relevant technologies.
 
 ## 📚 Learning Roadmap
 
@@ -34,9 +34,7 @@ My goal is to understand backend development step by step, strengthen my fundame
 - [x] Exception Handling
 - [x] Validation
 - [x] DTOs
-- [x] Spring Security Fundamentals
-- [ ] JWT Authentication
-- [ ] Testing
+- [ ] Automated Testing
 - [ ] Docker
 - [ ] Deployment
 
@@ -49,20 +47,22 @@ My goal is to understand backend development step by step, strengthen my fundame
 - [x] `SecurityFilterChain`
 - [x] Role-Based Authorization
 - [x] Protected REST APIs
-- [ ] Advanced JWT Authentication and Authorization
+- [x] JWT Authentication and Authorization Practice
+- [ ] Advanced Security Concepts
 
 ### 🌐 Microservices
 
 - [x] Microservices Fundamentals
-- [x] Multiple Spring Boot Applications
+- [x] Multiple Independent Spring Boot Applications
 - [x] Service Registration and Discovery
-- [x] Netflix Eureka Server
-- [x] Eureka Clients
+- [x] Netflix Eureka Server and Eureka Clients
 - [x] Inter-Service Communication using `RestTemplate`
 - [x] `DiscoveryClient`
+- [x] Inter-Service Communication using OpenFeign
+- [x] Spring Cloud Gateway
 - [x] Spring Boot Admin
-- [ ] API Gateway
-- [ ] Load Balancing
+- [x] Spring Boot Actuator
+- [ ] Advanced Load Balancing
 - [ ] Centralized Configuration
 - [ ] Fault Tolerance and Resilience
 - [ ] Dockerizing Microservices
@@ -72,22 +72,31 @@ My goal is to understand backend development step by step, strengthen my fundame
 
 # 🛠️ Projects
 
-## 1. SpringBootP01 — Spring Boot Fundamentals
+## 01. SpringBootP01 — Spring Boot Fundamentals
 
-My initial Spring Boot project, created to understand the fundamentals of backend development.
+My first Spring Boot project, created to understand the fundamentals of backend development.
 
-**Topics covered:**
+### Topics Covered
+
 - Spring Boot fundamentals
 - REST API development
 - Controller and service layers
 - Dependency Injection
 - Basic application structure
 
-## 2. SpringBootP02 — Student Management REST API
+### Technologies Used
+
+- Java
+- Spring Boot
+- Spring Web
+- Maven
+
+## 02. SpringBootP02 — Student Management REST API
 
 A Student Management REST API developed to understand CRUD operations and layered architecture.
 
-**Topics covered:**
+### Topics Covered
+
 - REST API development
 - CRUD operations
 - Controller layer
@@ -95,11 +104,19 @@ A Student Management REST API developed to understand CRUD operations and layere
 - Repository layer
 - Exception handling
 
-## 3. SpringBootP03 — Student Management with JPA
+### Technologies Used
+
+- Java
+- Spring Boot
+- Spring Web
+- Maven
+
+## 03. SpringBootP03 — Student Management with JPA
 
 A Student Management application using Spring Data JPA and MySQL for database operations.
 
-**Topics covered:**
+### Topics Covered
+
 - Spring Data JPA
 - Entity mapping
 - Repository interfaces
@@ -108,7 +125,15 @@ A Student Management application using Spring Data JPA and MySQL for database op
 - Database operations
 - Exception handling
 
-## 4. LibraryManagementAPI — Library Management REST API
+### Technologies Used
+
+- Java
+- Spring Boot
+- Spring Data JPA
+- MySQL
+- Maven
+
+## 04. LibraryManagementAPI — Library Management REST API
 
 A backend REST API built using Java and Spring Boot for managing books in a library.
 
@@ -137,9 +162,9 @@ A backend REST API built using Java and Spring Boot for managing books in a libr
 - Maven
 - Postman
 
-## 5. BookMyShowBE — Movie Ticket Booking Backend
+## 05. BookMyShowBE — Movie Ticket Booking Backend
 
-A backend REST API inspired by a movie ticket booking platform. This project focuses on managing movies, theatres, shows, customers, seats, and bookings using Spring Boot.
+A backend REST API inspired by a movie ticket booking platform. This project focuses on managing movies, theatres, shows, customers, seats, and bookings.
 
 ### Features
 
@@ -159,8 +184,6 @@ A backend REST API inspired by a movie ticket booking platform. This project foc
 - MySQL database integration
 
 ### Architecture
-
-The project follows a layered architecture:
 
 ```text
 Client
@@ -189,7 +212,7 @@ MySQL Database
 - REST APIs
 - Postman
 
-## 6. SpringSecurityP01 — Spring Security Fundamentals
+## 06. SpringSecurityP01 — Spring Security Fundamentals
 
 A basic Spring Security project built to understand authentication, authorization, password encryption, and role-based access control.
 
@@ -227,13 +250,11 @@ A basic Spring Security project built to understand authentication, authorizatio
 - Maven
 - Postman
 
-## 7. MicroservicesP01 — Spring Boot Microservices
+## 07. MicroservicesP01 — Eureka and RestTemplate
 
-A beginner-friendly microservices project developed to understand how independent Spring Boot applications communicate with each other, discover services, and support application monitoring.
+A beginner-friendly microservices project developed to understand service discovery and communication between independent Spring Boot applications.
 
-The project consists of four independent applications.
-
-### Services Included
+### Applications Included
 
 **1. Eureka Server — Port 8761**
 
@@ -247,19 +268,13 @@ Dashboard: `http://localhost:8761`
 **2. Hello Service — Port 8082**
 
 - Provides a greeting REST API.
-- Registers itself with Eureka Server.
+- Registers itself with Eureka.
 - Responds to requests from other services.
 
 Endpoint:
 
 ```http
 GET http://localhost:8082/api/hello
-```
-
-Response:
-
-```text
-Hello from Hello Service!
 ```
 
 **3. Welcome Service — Port 8081**
@@ -275,59 +290,43 @@ Endpoint:
 GET http://localhost:8081/api/welcome
 ```
 
-Response:
-
-```text
-Welcome! Hello from Hello Service!
-```
-
 **4. Spring Boot Admin Server — Port 8083**
 
-- Provides a web dashboard for monitoring configured Spring Boot applications.
-- Displays application information and available monitoring details.
-- Uses Actuator-related information exposed by configured client applications.
+- Provides an application monitoring dashboard.
+- Displays configured Spring Boot applications.
+- Uses Actuator information exposed by registered client applications.
 
 ### Architecture
 
 ```text
-              Client / Postman
-                     |
-                     v
-             Welcome Service
-                Port 8081
-                     |
-                     | RestTemplate
-                     | DiscoveryClient
-                     v
-              Hello Service
-                Port 8082
+Client / Postman
+       |
+       v
+Welcome Service :8081
+       |
+       | RestTemplate
+       | DiscoveryClient
+       v
+Hello Service :8082
 
-          +----------------------+
-          |     Eureka Server    |
-          |       Port 8761      |
-          | Registration and     |
-          | Service Discovery    |
-          +----------------------+
+       Eureka Server :8761
+       Service Registry
 
-          +----------------------+
-          | Spring Boot Admin    |
-          |      Port 8083       |
-          | Application Monitoring|
-          +----------------------+
+       Spring Boot Admin :8083
+       Application Monitoring
 ```
 
 ### Concepts Learned
 
 - Microservices architecture
 - Multiple independent Spring Boot applications
-- Service registry and service discovery
+- Service registration and discovery
 - Netflix Eureka Server and Eureka Clients
 - Inter-service REST communication
 - `RestTemplate`
 - `getForEntity()`
 - `DiscoveryClient`
-- Service names and application ports
-- Basic application monitoring
+- Application monitoring
 
 ### Technologies Used
 
@@ -337,11 +336,192 @@ Welcome! Hello from Hello Service!
 - Spring Cloud Netflix Eureka
 - Spring Boot Admin
 - Spring Boot Actuator
-- `RestTemplate`
-- `DiscoveryClient`
+- RestTemplate
+- DiscoveryClient
 - Maven
-- REST APIs
 - Postman
+
+## 08. MicroservicesP02 — Student Management Microservices
+
+A beginner-friendly microservices project developed to understand how multiple Spring Boot applications communicate through service discovery, declarative HTTP clients, and an API Gateway.
+
+The project uses **in-memory sample data** instead of a database, keeping the focus on microservices fundamentals.
+
+### Applications Included
+
+**1. Eureka Server — Port 8761**
+
+- Acts as the central service registry.
+- Receives registrations from the microservices.
+- Helps clients discover services by application name.
+- Provides a dashboard to inspect registered instances.
+
+Dashboard: `http://localhost:8761`
+
+**2. Admin Server — Port 9090**
+
+- Provides a Spring Boot Admin dashboard.
+- Monitors registered client applications.
+- Displays application health and available monitoring information.
+- Uses Actuator endpoints exposed by the applications.
+
+Dashboard: `http://localhost:9090`
+
+**3. Student Service — Port 8081**
+
+- Provides Student REST APIs.
+- Returns all students and individual student details.
+- Maintains sample student data in memory.
+- Uses OpenFeign to retrieve course information from Course Service.
+- Registers with Eureka and Spring Boot Admin.
+
+Endpoints:
+
+```http
+GET http://localhost:8081/api/students
+GET http://localhost:8081/api/students/1
+GET http://localhost:8081/api/students/1/course
+```
+
+**4. Course Service — Port 8082**
+
+- Provides Course REST APIs.
+- Returns all courses and individual course details.
+- Maintains sample course data in memory.
+- Registers with Eureka and Spring Boot Admin.
+
+Endpoints:
+
+```http
+GET http://localhost:8082/api/courses
+GET http://localhost:8082/api/courses/101
+```
+
+**5. API Gateway — Port 8085**
+
+- Provides a single entry point for Student and Course APIs.
+- Routes Student requests to Student Service.
+- Routes Course requests to Course Service.
+- Uses Eureka service discovery and Spring Cloud LoadBalancer to resolve service destinations.
+- Exposes Actuator endpoints for health monitoring.
+
+The Gateway uses port `8085` because port `8080` was already occupied on the development machine.
+
+Endpoints:
+
+```http
+GET http://localhost:8085/api/students
+GET http://localhost:8085/api/students/1/course
+GET http://localhost:8085/api/courses
+```
+
+### Architecture
+
+```text
+                 Client / Postman
+                        |
+                        v
+                 API Gateway
+                  Port 8085
+                   /      \
+                  /        \
+                 v          v
+       Student Service    Course Service
+           Port 8081        Port 8082
+                 |              ^
+                 |              |
+                 +-- OpenFeign -+
+                        |
+                        v
+                  Course Details
+
+             +--------------------+
+             |    Eureka Server   |
+             |      Port 8761     |
+             | Service Discovery  |
+             +--------------------+
+
+             +--------------------+
+             |    Admin Server    |
+             |      Port 9090     |
+             | Application Monitor|
+             +--------------------+
+```
+
+### Example Inter-Service Communication
+
+When a client requests:
+
+```http
+GET http://localhost:8085/api/students/1/course
+```
+
+The request follows this flow:
+
+1. API Gateway receives the request.
+2. Gateway discovers Student Service through Eureka.
+3. Student Service finds the requested student and reads their `courseId`.
+4. OpenFeign calls Course Service to retrieve the corresponding course.
+5. Student Service combines the student and course information.
+6. The combined JSON response returns through API Gateway.
+
+Example response:
+
+```json
+{
+  "student": {
+    "id": 1,
+    "name": "Harshal",
+    "email": "harshal@example.com",
+    "courseId": 101
+  },
+  "course": {
+    "id": 101,
+    "name": "Java Programming",
+    "instructor": "Rahul Sharma",
+    "durationInWeeks": 8
+  }
+}
+```
+
+### Concepts Learned
+
+- Independent Spring Boot applications
+- Netflix Eureka service registration and discovery
+- OpenFeign declarative HTTP clients
+- Inter-service communication
+- Spring Cloud Gateway routing
+- Service-name-based destination resolution
+- Spring Cloud LoadBalancer
+- Spring Boot Admin
+- Spring Boot Actuator
+- Health and metrics endpoints
+- API testing using a browser and Postman
+
+### Technologies Used
+
+- Java 21
+- Spring Boot 3.5.x
+- Spring Cloud 2025.0.x
+- Spring Web
+- Spring Cloud Netflix Eureka
+- Spring Cloud OpenFeign
+- Spring Cloud Gateway
+- Spring Cloud LoadBalancer
+- Spring Boot Admin
+- Spring Boot Actuator
+- Maven
+- Postman
+
+### Important Design Decisions
+
+- No database or Spring Data JPA.
+- No authentication or authorization.
+- No Kafka or messaging infrastructure.
+- No Docker or Config Server.
+- Sample data is maintained in memory.
+- Each application is independently runnable.
+- The project focuses on learning service discovery, communication, routing, and monitoring.
 
 ---
 
@@ -352,10 +532,13 @@ Welcome! Hello from Hello Service!
 | Programming Language | Java 21 |
 | Backend Framework | Spring Boot |
 | Web Development | Spring Web, REST APIs |
-| Database | MySQL |
 | Persistence | Spring Data JPA |
-| Security | Spring Security, BCrypt |
-| Microservices | Spring Cloud Netflix Eureka |
+| Database | MySQL |
+| Security | Spring Security, BCrypt, JWT |
+| Service Discovery | Netflix Eureka |
+| Inter-Service Communication | RestTemplate, OpenFeign |
+| API Routing | Spring Cloud Gateway |
+| Load Balancing | Spring Cloud LoadBalancer |
 | Monitoring | Spring Boot Admin, Actuator |
 | Build Tool | Maven |
 | API Testing | Postman |
@@ -364,17 +547,18 @@ Welcome! Hello from Hello Service!
 
 ## 🎯 Future Goals
 
-- Complete JWT authentication and authorization.
-- Learn automated testing with JUnit and Mockito.
-- Understand API Gateway and load balancing.
-- Learn centralized configuration and fault tolerance.
-- Containerize Spring Boot applications using Docker.
-- Deploy backend applications.
-- Build a larger project using microservices architecture.
+- Practise automated testing with JUnit and Mockito.
+- Explore advanced JWT authentication and authorization.
+- Understand centralized configuration with Spring Cloud Config.
+- Learn fault tolerance and resilience patterns.
+- Explore load balancing with multiple service instances.
+- Containerize applications using Docker.
+- Deploy Spring Boot applications.
+- Build larger applications using microservices architecture.
 
 ## 📈 My Learning Philosophy
 
-I believe in learning by building projects, understanding how each component works internally, testing APIs, solving errors, and gradually moving from basic concepts to production-oriented backend development.
+I believe in learning by building projects, understanding how each component works internally, testing APIs, debugging errors, and gradually progressing from basic concepts to production-oriented backend development.
 
 This repository will continue to evolve as I learn and implement new concepts.
 
