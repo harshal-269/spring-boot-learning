@@ -1,566 +1,449 @@
-# 🚀 Spring Boot Learning Journey
+# 🚀 MicroservicesP03 — Load Balancing with OpenFeign
 
-This repository documents my journey of learning **Java backend development, Spring Boot, REST APIs, Spring Security, and Microservices** through hands-on projects.
+A hands-on Spring Boot microservices project demonstrating **service discovery, inter-service communication, and client-side load balancing** using Netflix Eureka, Spring Cloud OpenFeign, and Spring Cloud LoadBalancer.
 
-My goal is to strengthen my backend fundamentals, understand how real-world applications work internally, and gradually build scalable applications using industry-relevant technologies.
-
-## 📚 Learning Roadmap
-
-### 🌱 Spring Core
-
-- [x] Inversion of Control (IoC)
-- [x] Dependency Injection
-- [x] Constructor Injection
-- [x] Setter Injection
-- [x] `@Autowired`
-- [x] `@Qualifier`
-- [x] `@Primary`
-- [x] `@Component`
-- [x] `@Service`
-- [x] `@Configuration`
-- [x] `@Bean`
-
-### ⚙️ Spring Boot
-
-- [x] Spring Boot Basics
-- [x] Project Structure
-- [x] REST APIs
-- [x] Controller Layer
-- [x] Service Layer
-- [x] Repository Layer
-- [x] CRUD Operations
-- [x] Spring Data JPA
-- [x] MySQL Integration
-- [x] Exception Handling
-- [x] Validation
-- [x] DTOs
-- [ ] Automated Testing
-- [ ] Docker
-- [ ] Deployment
-
-### 🔐 Spring Security
-
-- [x] Authentication Fundamentals
-- [x] Authorization Fundamentals
-- [x] Password Encryption using BCrypt
-- [x] `UserDetailsService`
-- [x] `SecurityFilterChain`
-- [x] Role-Based Authorization
-- [x] Protected REST APIs
-- [x] JWT Authentication and Authorization Practice
-- [ ] Advanced Security Concepts
-
-### 🌐 Microservices
-
-- [x] Microservices Fundamentals
-- [x] Multiple Independent Spring Boot Applications
-- [x] Service Registration and Discovery
-- [x] Netflix Eureka Server and Eureka Clients
-- [x] Inter-Service Communication using `RestTemplate`
-- [x] `DiscoveryClient`
-- [x] Inter-Service Communication using OpenFeign
-- [x] Spring Cloud Gateway
-- [x] Spring Boot Admin
-- [x] Spring Boot Actuator
-- [ ] Advanced Load Balancing
-- [ ] Centralized Configuration
-- [ ] Fault Tolerance and Resilience
-- [ ] Dockerizing Microservices
-- [ ] Microservices Deployment
+This project is part of my **Spring Boot Learning Journey**, where I build practical projects to understand backend development and microservices step by step.
 
 ---
 
-# 🛠️ Projects
+## 📌 Project Overview
 
-## 01. SpringBootP01 — Spring Boot Fundamentals
+In a microservices architecture, one service may run multiple instances to improve availability and distribute incoming requests.
 
-My first Spring Boot project, created to understand the fundamentals of backend development.
+This project demonstrates how a client service communicates with multiple instances of another service without hardcoding individual instance URLs.
 
-### Topics Covered
+### Objectives
 
-- Spring Boot fundamentals
-- REST API development
-- Controller and service layers
-- Dependency Injection
-- Basic application structure
+- Understand microservices architecture.
+- Implement service registration and discovery using Netflix Eureka.
+- Communicate between services using OpenFeign.
+- Run multiple instances of the same microservice.
+- Implement client-side load balancing using Spring Cloud LoadBalancer.
+- Discover service instances using Eureka.
+- Observe how requests are routed to available service instances.
+- Understand the request flow between independent Spring Boot applications.
 
-### Technologies Used
+---
 
-- Java
-- Spring Boot
-- Spring Web
-- Maven
+## 🏗️ Architecture
 
-## 02. SpringBootP02 — Student Management REST API
+The project contains three independent Spring Boot applications:
 
-A Student Management REST API developed to understand CRUD operations and layered architecture.
-
-### Topics Covered
-
-- REST API development
-- CRUD operations
-- Controller layer
-- Service layer
-- Repository layer
-- Exception handling
-
-### Technologies Used
-
-- Java
-- Spring Boot
-- Spring Web
-- Maven
-
-## 03. SpringBootP03 — Student Management with JPA
-
-A Student Management application using Spring Data JPA and MySQL for database operations.
-
-### Topics Covered
-
-- Spring Data JPA
-- Entity mapping
-- Repository interfaces
-- MySQL integration
-- Service layer
-- Database operations
-- Exception handling
-
-### Technologies Used
-
-- Java
-- Spring Boot
-- Spring Data JPA
-- MySQL
-- Maven
-
-## 04. LibraryManagementAPI — Library Management REST API
-
-A backend REST API built using Java and Spring Boot for managing books in a library.
-
-### Features
-
-- Create a new book
-- Retrieve all books
-- Retrieve a book by ID
-- Update book details
-- Delete a book
-- Request validation
-- Custom `BookNotFoundException`
-- Global exception handling
-- Request DTO and Response DTO
-- DTO-to-Entity and Entity-to-DTO conversion
-- MySQL database integration
-
-### Technologies Used
-
-- Java 21
-- Spring Boot
-- Spring Web
-- Spring Data JPA
-- MySQL
-- Jakarta Validation
-- Maven
-- Postman
-
-## 05. BookMyShowBE — Movie Ticket Booking Backend
-
-A backend REST API inspired by a movie ticket booking platform. This project focuses on managing movies, theatres, shows, customers, seats, and bookings.
-
-### Features
-
-- Movie management
-- Theatre management
-- Show management
-- Customer profiles
-- Show seat management
-- Movie and theatre APIs
-- Show APIs
-- Seat availability handling
-- Movie ticket booking
-- Booking response handling
-- Profile management
-- Custom exception handling
-- Global API exception handling
-- MySQL database integration
-
-### Architecture
+1. **Eureka Server** — Service registry.
+2. **Message Service** — Runs two instances on different ports.
+3. **Client Service** — Calls Message Service using OpenFeign.
 
 ```text
-Client
-   |
-   v
-Controller
-   |
-   v
-Service
-   |
-   v
-Repository
-   |
-   v
-MySQL Database
+                    Client / Postman
+                           |
+                           v
+                 +--------------------+
+                 |   Client Service   |
+                 |     Port 8080      |
+                 +--------------------+
+                           |
+                           | OpenFeign
+                           v
+                 +--------------------+
+                 | Spring Cloud       |
+                 | LoadBalancer       |
+                 +--------------------+
+                           |
+                    Selects instance
+                       /       \
+                      v         v
+             +-------------+ +-------------+
+             | Message     | | Message     |
+             | Service     | | Service     |
+             | Port: 8081  | | Port: 8082  |
+             +-------------+ +-------------+
+                      \         /
+                       \       /
+                        v     v
+                 +--------------------+
+                 |   Eureka Server    |
+                 |     Port 8761      |
+                 |  Service Registry  |
+                 +--------------------+
 ```
 
-### Technologies Used
+**Important:** Eureka provides service discovery, OpenFeign provides declarative HTTP communication, and Spring Cloud LoadBalancer selects a service instance. These components work together to enable client-side load balancing.
 
-- Java
-- Spring Boot
-- Spring Web
-- Spring Data JPA
-- MySQL
-- Maven
-- REST APIs
-- Postman
+---
 
-## 06. SpringSecurityP01 — Spring Security Fundamentals
+## 📦 Applications Included
 
-A basic Spring Security project built to understand authentication, authorization, password encryption, and role-based access control.
+### 1. Eureka Server
 
-### Features
+**Port:** `8761`
 
-- User registration
-- Password encryption using BCrypt
-- User authentication
-- USER and ADMIN roles
-- Role-based authorization
-- Protected REST APIs
-- Spring Security default login
-- Authentication and authorization flow
+Eureka Server acts as the central service registry.
 
-### Concepts Learned
+**Responsibilities:**
+- Registers and tracks available microservice instances.
+- Allows services to discover other services by application name.
+- Maintains information about registered instances.
+- Provides a dashboard to inspect service registrations.
 
-- `PasswordEncoder`
-- `BCryptPasswordEncoder`
-- `UserDetailsService`
-- `SecurityFilterChain`
-- Authentication
-- Authorization
-- Role-Based Access Control (RBAC)
-- Protected endpoints
-- HTTP 401 Unauthorized
-- HTTP 403 Forbidden
+**Dashboard:**
 
-### Technologies Used
+`http://localhost:8761`
 
-- Java 21
-- Spring Boot
-- Spring Security
-- Spring Data JPA
-- MySQL
-- Maven
-- Postman
+### 2. Message Service
 
-## 07. MicroservicesP01 — Eureka and RestTemplate
+**Ports:** `8081` and `8082`
 
-A beginner-friendly microservices project developed to understand service discovery and communication between independent Spring Boot applications.
+Two instances of the same Spring Boot application run on different ports.
 
-### Applications Included
+**Responsibilities:**
+- Exposes a REST API that returns a message.
+- Registers with Eureka.
+- Uses the same application name for both instances.
+- Provides multiple instances for load-balancing demonstrations.
 
-**1. Eureka Server — Port 8761**
+**Instance configuration:**
 
-- Acts as the service registry.
-- Allows microservices to register themselves.
-- Maintains information about registered service instances.
-- Provides a dashboard to view registered services.
+| Instance | Port |
+|---|---:|
+| Message Service 1 | 8081 |
+| Message Service 2 | 8082 |
 
-Dashboard: `http://localhost:8761`
+Both instances must register under the same Eureka service name so that the client can discover either instance.
 
-**2. Hello Service — Port 8082**
+### 3. Client Service
 
-- Provides a greeting REST API.
-- Registers itself with Eureka.
-- Responds to requests from other services.
+**Port:** `8080`
 
-Endpoint:
+Client Service provides an API that communicates with Message Service.
 
-```http
-GET http://localhost:8082/api/hello
-```
+**Responsibilities:**
+- Exposes a REST endpoint for clients.
+- Uses OpenFeign to call Message Service.
+- Uses the registered service name rather than hardcoding an instance URL.
+- Integrates with Spring Cloud LoadBalancer to select an available instance.
 
-**3. Welcome Service — Port 8081**
+---
 
-- Provides the Welcome REST API.
-- Discovers Hello Service using Eureka and `DiscoveryClient`.
-- Calls Hello Service using `RestTemplate`.
-- Returns a combined welcome message.
+## 🔄 How the Request Flow Works
 
-Endpoint:
+Suppose a client sends a request to Client Service.
 
-```http
-GET http://localhost:8081/api/welcome
-```
+1. The client sends an HTTP request to Client Service.
+2. Client Service invokes its OpenFeign client.
+3. OpenFeign identifies the target service using its registered application name.
+4. Spring Cloud LoadBalancer selects an available Message Service instance.
+5. The request is sent to the selected instance.
+6. Message Service processes the request and returns a response.
+7. Client Service receives the response and returns it to the original client.
 
-**4. Spring Boot Admin Server — Port 8083**
-
-- Provides an application monitoring dashboard.
-- Displays configured Spring Boot applications.
-- Uses Actuator information exposed by registered client applications.
-
-### Architecture
+### Example flow
 
 ```text
 Client / Postman
        |
+       | HTTP Request
        v
-Welcome Service :8081
+Client Service :8080
        |
-       | RestTemplate
-       | DiscoveryClient
+       | OpenFeign
        v
-Hello Service :8082
-
-       Eureka Server :8761
-       Service Registry
-
-       Spring Boot Admin :8083
-       Application Monitoring
+Spring Cloud LoadBalancer
+       |
+       | Selects an instance
+       |
+       +--------------------+
+       |                    |
+       v                    v
+Message Service        Message Service
+    :8081                  :8082
+       |                    |
+       +---------+----------+
+                 |
+                 v
+          HTTP Response
+                 |
+                 v
+          Client / Postman
 ```
 
-### Concepts Learned
-
-- Microservices architecture
-- Multiple independent Spring Boot applications
-- Service registration and discovery
-- Netflix Eureka Server and Eureka Clients
-- Inter-service REST communication
-- `RestTemplate`
-- `getForEntity()`
-- `DiscoveryClient`
-- Application monitoring
-
-### Technologies Used
-
-- Java 21
-- Spring Boot
-- Spring Web
-- Spring Cloud Netflix Eureka
-- Spring Boot Admin
-- Spring Boot Actuator
-- RestTemplate
-- DiscoveryClient
-- Maven
-- Postman
-
-## 08. MicroservicesP02 — Student Management Microservices
-
-A beginner-friendly microservices project developed to understand how multiple Spring Boot applications communicate through service discovery, declarative HTTP clients, and an API Gateway.
-
-The project uses **in-memory sample data** instead of a database, keeping the focus on microservices fundamentals.
-
-### Applications Included
-
-**1. Eureka Server — Port 8761**
-
-- Acts as the central service registry.
-- Receives registrations from the microservices.
-- Helps clients discover services by application name.
-- Provides a dashboard to inspect registered instances.
-
-Dashboard: `http://localhost:8761`
-
-**2. Admin Server — Port 9090**
-
-- Provides a Spring Boot Admin dashboard.
-- Monitors registered client applications.
-- Displays application health and available monitoring information.
-- Uses Actuator endpoints exposed by the applications.
-
-Dashboard: `http://localhost:9090`
-
-**3. Student Service — Port 8081**
-
-- Provides Student REST APIs.
-- Returns all students and individual student details.
-- Maintains sample student data in memory.
-- Uses OpenFeign to retrieve course information from Course Service.
-- Registers with Eureka and Spring Boot Admin.
-
-Endpoints:
-
-```http
-GET http://localhost:8081/api/students
-GET http://localhost:8081/api/students/1
-GET http://localhost:8081/api/students/1/course
-```
-
-**4. Course Service — Port 8082**
-
-- Provides Course REST APIs.
-- Returns all courses and individual course details.
-- Maintains sample course data in memory.
-- Registers with Eureka and Spring Boot Admin.
-
-Endpoints:
-
-```http
-GET http://localhost:8082/api/courses
-GET http://localhost:8082/api/courses/101
-```
-
-**5. API Gateway — Port 8085**
-
-- Provides a single entry point for Student and Course APIs.
-- Routes Student requests to Student Service.
-- Routes Course requests to Course Service.
-- Uses Eureka service discovery and Spring Cloud LoadBalancer to resolve service destinations.
-- Exposes Actuator endpoints for health monitoring.
-
-The Gateway uses port `8085` because port `8080` was already occupied on the development machine.
-
-Endpoints:
-
-```http
-GET http://localhost:8085/api/students
-GET http://localhost:8085/api/students/1/course
-GET http://localhost:8085/api/courses
-```
-
-### Architecture
-
-```text
-                 Client / Postman
-                        |
-                        v
-                 API Gateway
-                  Port 8085
-                   /      \
-                  /        \
-                 v          v
-       Student Service    Course Service
-           Port 8081        Port 8082
-                 |              ^
-                 |              |
-                 +-- OpenFeign -+
-                        |
-                        v
-                  Course Details
-
-             +--------------------+
-             |    Eureka Server   |
-             |      Port 8761     |
-             | Service Discovery  |
-             +--------------------+
-
-             +--------------------+
-             |    Admin Server    |
-             |      Port 9090     |
-             | Application Monitor|
-             +--------------------+
-```
-
-### Example Inter-Service Communication
-
-When a client requests:
-
-```http
-GET http://localhost:8085/api/students/1/course
-```
-
-The request follows this flow:
-
-1. API Gateway receives the request.
-2. Gateway discovers Student Service through Eureka.
-3. Student Service finds the requested student and reads their `courseId`.
-4. OpenFeign calls Course Service to retrieve the corresponding course.
-5. Student Service combines the student and course information.
-6. The combined JSON response returns through API Gateway.
-
-Example response:
-
-```json
-{
-  "student": {
-    "id": 1,
-    "name": "Harshal",
-    "email": "harshal@example.com",
-    "courseId": 101
-  },
-  "course": {
-    "id": 101,
-    "name": "Java Programming",
-    "instructor": "Rahul Sharma",
-    "durationInWeeks": 8
-  }
-}
-```
-
-### Concepts Learned
-
-- Independent Spring Boot applications
-- Netflix Eureka service registration and discovery
-- OpenFeign declarative HTTP clients
-- Inter-service communication
-- Spring Cloud Gateway routing
-- Service-name-based destination resolution
-- Spring Cloud LoadBalancer
-- Spring Boot Admin
-- Spring Boot Actuator
-- Health and metrics endpoints
-- API testing using a browser and Postman
-
-### Technologies Used
-
-- Java 21
-- Spring Boot 3.5.x
-- Spring Cloud 2025.0.x
-- Spring Web
-- Spring Cloud Netflix Eureka
-- Spring Cloud OpenFeign
-- Spring Cloud Gateway
-- Spring Cloud LoadBalancer
-- Spring Boot Admin
-- Spring Boot Actuator
-- Maven
-- Postman
-
-### Important Design Decisions
-
-- No database or Spring Data JPA.
-- No authentication or authorization.
-- No Kafka or messaging infrastructure.
-- No Docker or Config Server.
-- Sample data is maintained in memory.
-- Each application is independently runnable.
-- The project focuses on learning service discovery, communication, routing, and monitoring.
+Eureka maintains the service registry used for discovery. Spring Cloud LoadBalancer uses the available service instances to make its selection.
 
 ---
 
-## 🧰 Technologies and Tools
+## ⚖️ What Is Client-Side Load Balancing?
 
-| Category | Technologies |
+Client-side load balancing means that the calling application selects which service instance should receive a request.
+
+For example, instead of always calling:
+
+```text
+http://localhost:8081/api/message
+```
+
+the client calls the registered service by name through OpenFeign. Spring Cloud LoadBalancer then selects an available instance.
+
+This makes it possible to run multiple instances of the same service without hardcoding each instance's URL in the client.
+
+**Note:** Do not assume every consecutive request must alternate between ports `8081` and `8082`. The actual selection depends on the configured load-balancing strategy and the available instances.
+
+---
+
+## 🛠️ Technologies Used
+
+| Technology | Purpose |
 |---|---|
-| Programming Language | Java 21 |
-| Backend Framework | Spring Boot |
-| Web Development | Spring Web, REST APIs |
-| Persistence | Spring Data JPA |
-| Database | MySQL |
-| Security | Spring Security, BCrypt, JWT |
-| Service Discovery | Netflix Eureka |
-| Inter-Service Communication | RestTemplate, OpenFeign |
-| API Routing | Spring Cloud Gateway |
-| Load Balancing | Spring Cloud LoadBalancer |
-| Monitoring | Spring Boot Admin, Actuator |
-| Build Tool | Maven |
-| API Testing | Postman |
-| IDE | IntelliJ IDEA |
-| Version Control | Git and GitHub |
+| Java 21 | Programming language |
+| Spring Boot 3.5.x | Application framework |
+| Spring Cloud 2025.0.x | Microservices infrastructure |
+| Spring Web | REST API development |
+| Netflix Eureka Server | Service registry |
+| Netflix Eureka Client | Service registration and discovery |
+| Spring Cloud OpenFeign | Declarative HTTP client |
+| Spring Cloud LoadBalancer | Client-side load balancing |
+| Maven | Dependency management and build |
+| IntelliJ IDEA | Development environment |
+| Postman | API testing |
+| Git and GitHub | Version control |
 
-## 🎯 Future Goals
+---
 
-- Practise automated testing with JUnit and Mockito.
-- Explore advanced JWT authentication and authorization.
-- Understand centralized configuration with Spring Cloud Config.
-- Learn fault tolerance and resilience patterns.
-- Explore load balancing with multiple service instances.
-- Containerize applications using Docker.
-- Deploy Spring Boot applications.
-- Build larger applications using microservices architecture.
+## 📁 Project Structure
 
-## 📈 My Learning Philosophy
+```text
+09-MicroservicesP03/
+│
+├── eureka-server/
+│   ├── src/
+│   │   ├── main/
+│   │   │   ├── java/
+│   │   │   │   └── [Eureka Server application classes]
+│   │   │   └── resources/
+│   │   │       └── application.properties
+│   │   └── test/
+│   ├── pom.xml
+│   └── mvnw
+│
+├── message-service/
+│   ├── src/
+│   │   ├── main/
+│   │   │   ├── java/
+│   │   │   │   └── [Message Service application classes]
+│   │   │   └── resources/
+│   │   │       └── application.properties
+│   │   └── test/
+│   ├── pom.xml
+│   └── mvnw
+│
+├── client-service/
+│   ├── src/
+│   │   ├── main/
+│   │   │   ├── java/
+│   │   │   │   └── [Client Service application classes]
+│   │   │   └── resources/
+│   │   │       └── application.properties
+│   │   └── test/
+│   ├── pom.xml
+│   └── mvnw
+│
+└── README.md
+```
 
-I believe in learning by building projects, understanding how each component works internally, testing APIs, debugging errors, and gradually progressing from basic concepts to production-oriented backend development.
+Each application is an independent Spring Boot project with its own `pom.xml` and application configuration.
 
-This repository will continue to evolve as I learn and implement new concepts.
+The Java package structure and class names are maintained within each application's source directory.
+
+---
+
+## ⚙️ Prerequisites
+
+Before running the project, make sure you have:
+
+- Java Development Kit (JDK) 21.
+- IntelliJ IDEA or another Java IDE.
+- Maven or the included Maven Wrapper.
+- Postman or a browser for testing REST APIs.
+- Ports `8080`, `8081`, `8082`, and `8761` available.
+
+Check your Java installation:
+
+```bash
+java -version
+```
+
+---
+
+## ▶️ How to Run the Project
+
+Start the applications in the following order.
+
+### Step 1: Start Eureka Server
+
+Open the `eureka-server` project in IntelliJ IDEA and run its main application class.
+
+Wait until the application starts successfully.
+
+Open the dashboard:
+
+`http://localhost:8761`
+
+### Step 2: Start Message Service — Instance 1
+
+Run the Message Service application with port `8081`.
+
+Verify that the service registers with Eureka.
+
+### Step 3: Start Message Service — Instance 2
+
+Run another instance of the same Message Service application with port `8082`.
+
+In IntelliJ IDEA, create a separate run configuration and add this program argument:
+
+```text
+--server.port=8082
+```
+
+Keep the first instance running on port `8081`.
+
+Verify that Eureka displays the Message Service instances.
+
+### Step 4: Start Client Service
+
+Run the Client Service application on port `8080`.
+
+Wait for the application to start and register with Eureka.
+
+### Step 5: Test the Client API
+
+Open Postman and send a `GET` request to the Client Service endpoint implemented in your controller.
+
+For example, if your controller maps the endpoint to `/api/client/message`, the request would be:
+
+```http
+GET http://localhost:8080/api/client/message
+```
+
+**Use the actual mapping defined in your controller if it differs from this example.**
+
+Check the response and application logs to identify which Message Service instance handled the request.
+
+### Step 6: Observe Load Balancing
+
+1. Keep both Message Service instances running.
+2. Send multiple requests to Client Service.
+3. Inspect the Message Service logs or response details.
+4. Observe which instance receives each request.
+5. Stop one instance and test again to explore how instance availability affects requests.
+
+The last step is a useful experiment for understanding service-instance selection and the behavior of the current configuration.
+
+---
+
+## 🧪 Testing Checklist
+
+Use this checklist while testing the project.
+
+- [ ] Eureka Server starts successfully.
+- [ ] Message Service instance on port `8081` starts.
+- [ ] Message Service instance on port `8082` starts.
+- [ ] Both instances register under the same service name.
+- [ ] Client Service starts successfully.
+- [ ] OpenFeign resolves the target service by its registered name.
+- [ ] Client API returns a successful response.
+- [ ] Multiple requests can be sent through Client Service.
+- [ ] Instance selection can be observed through logs or response details.
+- [ ] Behavior is tested after stopping one Message Service instance.
+
+---
+
+## 🧠 Key Concepts Learned
+
+### Microservices Fundamentals
+- Independent Spring Boot applications.
+- Communication between services.
+- Service boundaries and responsibilities.
+
+### Service Discovery
+- Netflix Eureka Server.
+- Eureka Client registration.
+- Discovering services by application name.
+- Registered service instances.
+
+### OpenFeign
+- Declarative HTTP clients.
+- Interface-based inter-service communication.
+- Calling another microservice without manually writing repetitive HTTP client code.
+
+### Load Balancing
+- Client-side load balancing.
+- Spring Cloud LoadBalancer.
+- Multiple instances of the same microservice.
+- Service-instance selection.
+- The relationship between service discovery and load balancing.
+
+### Practical Development
+- Running multiple Spring Boot applications.
+- Configuring different server ports.
+- Testing REST APIs with Postman.
+- Inspecting logs and debugging service communication.
+
+---
+
+## 🔍 OpenFeign vs. RestTemplate
+
+| OpenFeign | RestTemplate |
+|---|---|
+| Declarative HTTP client | Imperative HTTP client |
+| Uses interfaces and annotations | Uses methods such as `getForEntity()` |
+| Reduces repetitive HTTP request code | Requires explicit request-handling code |
+| Integrates with Spring Cloud LoadBalancer when configured | Requires suitable integration for service-name-based load balancing |
+
+This project uses OpenFeign to practise declarative inter-service communication and Spring Cloud LoadBalancer for client-side instance selection.
+
+`RestTemplate` is not used for the primary service-to-service communication in this project.
+
+---
+
+## 🚧 Project Scope
+
+This project focuses on the fundamentals of Eureka, OpenFeign, and client-side load balancing.
+
+The current scope does not include:
+
+- Database integration.
+- Authentication and authorization.
+- Spring Cloud Gateway.
+- Centralized configuration.
+- Circuit breakers and retry policies.
+- Distributed tracing.
+- Docker-based deployment.
+- Cloud deployment.
+
+These can be explored in separate projects as the learning journey progresses.
+
+---
+
+## 🚀 Future Enhancements
+
+Possible future improvements include:
+
+- Centralized configuration using Spring Cloud Config.
+- Fault tolerance using Resilience4j.
+- Retry and timeout configuration.
+- Circuit breaker implementation.
+- Distributed tracing and structured logging.
+- Containerization using Docker.
+- Deployment of microservices to a cloud platform.
+- Production-oriented monitoring and observability.
+
+---
+
+## 📚 Learning Journey
+
+This project is part of my `spring-boot-learning` repository, which documents my practical journey through Java backend development, Spring Boot, Spring Security, REST APIs, and Microservices.
+
+**GitHub Repository:** [spring-boot-learning](https://github.com/harshal-269/spring-boot-learning)
+
+My approach is to learn by building projects, testing APIs, understanding internal request flows, debugging issues, and gradually moving toward production-oriented backend development.
 
 ---
 
